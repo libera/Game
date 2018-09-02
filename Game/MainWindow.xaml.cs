@@ -12,7 +12,7 @@ namespace Game
         /// Konstruktor
         /// </summary>
         /// <param name="model">ViewModel okna</param>
-        internal MainWindow(GameViewModel model)
+        internal MainWindow(IGameViewModel model)
         {
             InitializeComponent();
             DataContext = model ?? throw new ArgumentNullException(nameof(model));

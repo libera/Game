@@ -22,7 +22,7 @@ namespace Game.Logic.ResultGenerators
             {
                 throw new ArgumentException("There must be at least 1 reel.", nameof(nNumberOfReels));
             }
-            m_random = new Random();
+            m_random = new Random(DateTime.Now.Millisecond);
 
             m_nNumberOfReels = nNumberOfReels;
         }

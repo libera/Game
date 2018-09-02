@@ -18,22 +18,22 @@ namespace Game.Logic.Reels
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="elemtns">Kolekcja elementów na bębnie, kolekcja musi zawierać co najmniej 2 elementy</param>
+        /// <param name="elements">Kolekcja elementów na bębnie, kolekcja musi zawierać co najmniej 2 elementy</param>
         /// <param name="startElement">Początkowy element</param>
         /// <param name="nNumberOfRotation">Liczba obrotów przez ustawieniem nowej wartości</param>
-        public ReelFixRotations(IEnumerable<T> elemtns, T startElement, ushort nNumberOfRotation)
+        public ReelFixRotations(IEnumerable<T> elements, T startElement, ushort nNumberOfRotation)
         {
-            if (elemtns == null || elemtns.Count() < 2)
+            if (elements == null || elements.Count() < 2)
             {
-                throw new ArgumentException("Elements list must be provided with at least 2 elements", nameof(elemtns));
+                throw new ArgumentException("Elements list must be provided with at least 2 elements", nameof(elements));
             }
 
-            if (!elemtns.Contains(startElement))
+            if (!elements.Contains(startElement))
             {
                 throw new ArgumentException("There is no start element on the elements list", nameof(startElement));
             }
 
-            m_reelElements = elemtns.ToList();
+            m_reelElements = elements.ToList();
             m_nReelSize = m_reelElements.Count();
             m_nNumberOfRotation = nNumberOfRotation;
 
@@ -98,7 +98,8 @@ namespace Game.Logic.Reels
                 throw new InvalidOperationException($"Reel does not contains element {element}");
             }
 
-            for (int i = m_nSelectedItemIntex; true; i--)
+            //Zaczynamy od pozycji o 1 mniej niż obecna pozycja, żeby nie "ruszyć się", kiedy wybrany jest wskazany elemnt
+            for (int i = m_nSelectedItemIntex -1; true; i--)
             {
                 //Modulo samo w sobie z wartości ujemnych nie przejdzie na dodatnie
                 //Dlatego dla zabezpieczenia musimy dodać wielkość listy i dopiero zrobić modulo

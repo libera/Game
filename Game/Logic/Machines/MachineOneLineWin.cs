@@ -99,7 +99,7 @@ namespace Game.Logic.Machines
             //Zapamiętujemy ustawioną stawkę. Zapamiętujemy, żeby mieć oryginalną wartość jak ktoś potem by ją zmienił
             uint nSpinBid = Bid;
 
-            if (Credits < nSpinBid)
+            if (this.Credits < nSpinBid)
             {
                 throw new InvalidOperationException("Insufficient Credits.");
             }
@@ -110,9 +110,9 @@ namespace Game.Logic.Machines
             IEnumerable<T> nextResult = m_resultGenerator.GetNextResult();
 
             //Nie powinno być tak, że ktoś dostarcza źle skonstruowany generator. Nie obsługujemy.
-            if (nextResult.Count() != m_reels.Count())
+            if (nextResult == null || nextResult.Count() != m_reels.Count())
             {
-                throw new InvalidOperationException("Result Generator didn't return values for warch reel.");
+                throw new InvalidOperationException("Result Generator didn't return number values exactly to number of reels.");
             }
 
             //Każdy z wyników powinien być osiągalny na bębnie. Nie obsługujemy błędów.
@@ -128,7 +128,7 @@ namespace Game.Logic.Machines
 
             if (!bAreAllResultsPossible)
             {
-                throw new InvalidOperationException("Result Generator didn't return values for warch reel.");
+                throw new InvalidOperationException("Returned result is nott possible to set.");
             }
 
             for (int i = 0; i < m_reels.Count(); i++)

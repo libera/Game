@@ -5,8 +5,57 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Game"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Game" Height="450" Width="540"
+        DataContext="GameViewModel" ResizeMode="NoResize">
     <Grid>
-        
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        </Grid.Resources>
+
+        <StackPanel Background="AliceBlue">
+            <StackPanel  Orientation="Horizontal" Margin="0,5,0,0" HorizontalAlignment="Center" Background="LightSkyBlue">
+                <StackPanel Margin="5">
+                    <Image Source="{Binding Reel1NextImagePath}" Width="100" Height="100" />
+                    <Image Margin="0,5" Source="{Binding Reel1CurrentImagePath}" Width="100" Height="100" />
+                    <Image Source="{Binding Reel1PreviousImagePath}" Width="100" Height="100" />
+                </StackPanel>
+                <StackPanel Margin="0,5">
+                    <Image Source="{Binding Reel2NextImagePath}" Width="100" Height="100" />
+                    <Image Margin="0,5"  Source="{Binding Reel2CurrentImagePath}" Width="100" Height="100" />
+                    <Image Source="{Binding Reel2PreviousImagePath}" Width="100" Height="100" />
+                </StackPanel>
+                <StackPanel Margin="5">
+                    <Image Source="{Binding Reel3NextImagePath}" Width="100" Height="100" />
+                    <Image Margin="0,5" Source="{Binding Reel3CurrentImagePath}" Width="100" Height="100" />
+                    <Image Source="{Binding Reel3PreviousImagePath}" Width="100" Height="100" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Bottom" Background="DarkCyan">
+                <DockPanel Margin="5" Width="100">
+                    <Button Content="Start" Command="{Binding SpinCommand}" />
+                </DockPanel>
+                <StackPanel Margin="30,5" Orientation="Horizontal">
+                    <GroupBox Header="Stawka">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="&lt;&lt;" Height="22" Width="22" HorizontalAlignment="Left" Margin="5,0" Command="{Binding DecreasBidCommand}" />
+                            <TextBox IsReadOnly="True" Text="{Binding Bid, Mode=OneWay}"  Width="75" Height="22" TextAlignment="Center"/>
+                            <Button Content="&gt;&gt;" Height="22" Width="22" HorizontalAlignment="Left" Margin="5,0" Command="{Binding IncreasBidCommand}" />
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+                <StackPanel Margin="5">
+                <StackPanel Orientation="Horizontal" >
+                    <Label  Content="Punkty:" VerticalAlignment="Center" />
+                    <TextBox IsReadOnly="True" Text="{Binding Credits, Mode=OneWay}"  Width="75" TextAlignment="Right"/>
+                    <Button Content="Dodaj" Height="25" Width="45" HorizontalAlignment="Left" Margin="5,0" Command="{Binding AddCreditsCommand}" />
+                </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <Label  Content="Wygrane:" VerticalAlignment="Center" />
+                        <TextBox IsReadOnly="True" Text="{Binding Wins, Mode=OneWay}"  Width="62" TextAlignment="Right"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <Rectangle  HorizontalAlignment="Stretch" Margin="50,160,50,0" Fill="Black" Height="8" Visibility="{Binding ShowWinningLine, Converter={StaticResource BoolToVisibility}}" VerticalAlignment="Top" />
     </Grid>
 </Window>
